@@ -1,0 +1,107 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id               Int            @id @default(autoincrement())
+  username         String
+  email            String         @unique
+  password         String
+  profileImage     String?        @default("/uploads/default.png") @map("profile_image")
+  bio              String?
+  role             String         @default("user")
+  createdAt        DateTime       @default(now()) @map("created_at")
+  updatedAt        DateTime       @updatedAt @map("updated_at")
+  posts            Post[]
+  comments         Comment[]
+  sentMessages     Message[]      @relation("Send message")
+  receivedMessages Message[]      @relation("Receive message")
+  notifications    Notification[]
+  likes            Like[]
+  following       Follow[]       @relation("Following")
+  followers        Follow[]       @relation("Followers")
+}
+
+model Post {
+  id        Int       @id @default(autoincrement())
+  content   String
+  image     String?
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  authorId  Int
+  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  comments  Comment[]
+  likes     Like[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  authorId  Int
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  postId    Int
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId    Int
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+}
+
+model Follow {
+  id Int @id @default(autoincrement())
+
+  followerId Int
+  follower   User @relation("Following", fields: [followerId], references: [id])
+
+  followingId Int
+  following   User @relation("Followers", fields: [followingId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([followerId, followingId])
+}
+
+model Message {
+  id         Int      @id @default(autoincrement())
+  senderId   Int
+  sender     User     @relation("Send message", fields: [senderId], references: [id])
+  receiverId Int
+  receiver   User     @relation("Receive message", fields: [receiverId], references: [id])
+  content    String
+  isRead     Boolean  @default(false)
+  createdAt  DateTime @default(now()) @map("created_at")
+}
+
+enum NotificationType {
+  LIKE
+  COMMENT
+  FOLLOW
+  MESSAGE
+}
+
+model Notification {
+  id          Int              @id @default(autoincrement())
+  userId      Int
+  user        User             @relation(fields: [userId], references: [id])
+  type        NotificationType
+  message     String
+  isRead      Boolean          @default(false)
+  referenceId Int?
+  createdAt   DateTime         @default(now()) @map("created_at")
+}

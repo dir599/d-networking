@@ -1,13 +1,14 @@
-import express from 'express'
+import express from "express";
+import "dotenv/config";
 
+const PORT = process.env.PORT;
 const app = express();
-app.use(express.json())
+app.use(express.json());
 
-app.get("/", (req,res)=>{
-    res.send("this is testing api.")
+app.get("/", (req, res) => {
+  res.send("this is testing api.");
+});
 
-})
-
-app.listen(3000, ()=>{
-    console.log(`http://localhost:3000`)
-})
+app.listen(PORT, () => {
+  console.log(`http://localhost:${PORT}`);
+});
