@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  postgresql:
+    image: 'postgres:17.7'
+    container_name: d-networking
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+    ports: 
+      - "${POSTGRES_PORT}:5432"
