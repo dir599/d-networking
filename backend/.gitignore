@@ -8,3 +8,4 @@ node_modules
 # -m "doc:made changes to readme.md" =>documentation
 
 # npm run build
+/src/generated/prisma
