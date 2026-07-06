@@ -1,2 +1,10 @@
 node_modules
 .env
+
+# -m "fix-navbar" -> bug fix
+
+# -m "feat-toggle" =>features
+
+# -m "doc:made changes to readme.md" =>documentation
+
+# npm run build
