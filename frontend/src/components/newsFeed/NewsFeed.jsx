@@ -1,11 +1,17 @@
 import React from "react";
 // Replace these imports with whichever icon library you prefer (Lucide, FontAwesome, etc.)
-import { Heart, MessageCircle, Send, Bookmark, MoreHorizontal, Smile } from "lucide-react";
+import {
+  Heart,
+  MessageCircle,
+  Send,
+  Bookmark,
+  MoreHorizontal,
+  Smile,
+} from "lucide-react";
 
 const Newsfeed = () => {
   return (
     <div className="max-w-xl bg-white border border-slate-100 rounded-3xl p-4 shadow-sm flex flex-col gap-4">
-      
       {/* Header: User Info */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -15,7 +21,9 @@ const Newsfeed = () => {
             className="w-10 h-10 rounded-full object-cover"
           />
           <div className="flex flex-col">
-            <h3 className="text-sm font-bold text-slate-800 leading-tight">imozix</h3>
+            <h3 className="text-sm font-bold text-slate-800 leading-tight">
+              imozix
+            </h3>
             <span className="text-xs text-slate-400">Cairo, Egypt</span>
           </div>
         </div>
@@ -41,7 +49,7 @@ const Newsfeed = () => {
             <Heart size={16} fill="currentColor" />
             <span>123</span>
           </button>
-          
+
           {/* Comment Pill Button */}
           <button className="flex items-center gap-1.5 border border-slate-200 text-slate-700 px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-slate-50 transition-colors">
             <MessageCircle size={16} />
@@ -65,22 +73,35 @@ const Newsfeed = () => {
         {/* Liked By Section */}
         <div className="flex items-center gap-2">
           <div className="flex -space-x-2">
-            <img className="w-5 h-5 rounded-full border border-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=50&q=80" alt="user" />
-            <img className="w-5 h-5 rounded-full border border-white object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=50&q=80" alt="user" />
+            <img
+              className="w-5 h-5 rounded-full border border-white object-cover"
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=50&q=80"
+              alt="user"
+            />
+            <img
+              className="w-5 h-5 rounded-full border border-white object-cover"
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=50&q=80"
+              alt="user"
+            />
           </div>
           <p className="text-xs text-slate-700">
-            Liked by <span className="font-bold text-slate-900">asirabdelhady</span> and <span className="font-bold text-slate-900">122 others</span>
+            Liked by{" "}
+            <span className="font-bold text-slate-900">asirabdelhady</span> and{" "}
+            <span className="font-bold text-slate-900">122 others</span>
           </p>
         </div>
 
         {/* Post Caption */}
         <p className="text-sm text-slate-800">
           <span className="font-bold text-slate-900 mr-1">imozix</span>
-          New illustration 🖤 <span className="text-slate-400 cursor-pointer">... more</span>
+          New illustration 🖤{" "}
+          <span className="text-slate-400 cursor-pointer">... more</span>
         </p>
 
         {/* Timestamp */}
-        <span className="text-[10px] text-slate-400 font-medium tracking-wide">20 JULY</span>
+        <span className="text-[10px] text-slate-400 font-medium tracking-wide">
+          20 JULY
+        </span>
       </div>
 
       {/* Add Comment Section */}
@@ -89,7 +110,7 @@ const Newsfeed = () => {
         <div className="w-7 h-7 bg-black rounded-full flex items-center justify-center text-white font-mono text-xs font-bold shrink-0">
           S
         </div>
-        
+
         {/* Input Field */}
         <input
           type="text"
@@ -107,7 +128,6 @@ const Newsfeed = () => {
           Post
         </button>
       </div>
-
     </div>
   );
 };
