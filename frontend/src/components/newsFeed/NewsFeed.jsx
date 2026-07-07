@@ -25,7 +25,7 @@ const Newsfeed = () => {
       </div>
 
       {/* Main Post Image */}
-      <div className="w-full aspect-[4/5] rounded-3xl overflow-hidden bg-slate-100">
+      <div className="w-full aspect-4/5 rounded-3xl overflow-hidden bg-slate-100">
         <img
           src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80" // Replace with your main illustration asset
           alt="Post illustration"
