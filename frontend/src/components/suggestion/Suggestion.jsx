@@ -80,7 +80,6 @@
 
 // export default Suggestions;
 
-
 import React from "react";
 import story from "../../assets/stories/stories.png";
 import story2 from "../../assets/stories/story2.jpeg";
@@ -105,8 +104,11 @@ const Suggestions = () => {
 
       <div className="flex flex-col gap-5">
         {suggestionsData.map((item) => (
-        //   /* 1. Added justify-center to push the image and text block into the middle */
-          <div key={item.id} className="flex items-center justify-center gap-3 w-full">
+          //   /* 1. Added justify-center to push the image and text block into the middle */
+          <div
+            key={item.id}
+            className="flex items-center justify-center gap-3 w-full"
+          >
             <img
               src={item.img}
               alt={item.desc}

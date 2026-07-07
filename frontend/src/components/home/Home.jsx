@@ -9,11 +9,13 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex justify-between mt-10">
-        <div className="mt-10"><Sidebar /></div>
+      <div className="flex justify-between">
+        <div className="p-4">
+          <Sidebar />
+        </div>
         <div>
-           <Stories />
-           <NewsFeed className="mt-10" />
+          <Stories />
+          <NewsFeed />
         </div>
         <Suggestions />
       </div>
