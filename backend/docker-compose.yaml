@@ -1,9 +1,8 @@
 version: '3.8'
-
 services:
   postgresql:
     image: 'postgres:17.7'
-    container_name: d-networking
+    container_name: "d-networking"
     env_file:
       - .env
     environment:
