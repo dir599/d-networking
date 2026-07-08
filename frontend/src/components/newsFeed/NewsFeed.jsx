@@ -11,7 +11,7 @@ import {
 
 const Newsfeed = () => {
   return (
-    <div className="max-w-xl bg-white border border-slate-100 rounded-3xl p-4 shadow-sm flex flex-col gap-4">
+    <div className="max-w-xl h-screen bg-white border border-slate-100 rounded-3xl p-4 shadow-sm flex flex-col gap-4">
       {/* Header: User Info */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -25,7 +25,7 @@ const Newsfeed = () => {
               imozix
             </h3>
             <span className="text-xs text-slate-400">Cairo, Egypt</span>
-          </div>
+          </div> 
         </div>
         <button className="text-slate-600 hover:text-slate-900 transition-colors">
           <MoreHorizontal size={20} />
@@ -33,7 +33,7 @@ const Newsfeed = () => {
       </div>
 
       {/* Main Post Image */}
-      <div className="w-full aspect-4/5 rounded-3xl overflow-hidden bg-slate-100">
+      <div className="w-full h- aspect-4/5 rounded-3xl overflow-hidden bg-slate-100 ">
         <img
           src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80" // Replace with your main illustration asset
           alt="Post illustration"

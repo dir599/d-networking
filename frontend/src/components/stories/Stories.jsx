@@ -8,9 +8,9 @@ import story5 from "../../assets/stories/story5.png";
 
 const Stories = () => {
   return (
-    <div className="h-30 max-w-xl bg-blue-50 mb-3">
+    <div className="h-30 max-w-xl bg-blue-50 mb-3 rounded-2xl ">
       <h1 className="p-2">Stories</h1>
-      <div class="flex justify-evenly items-center bg-blue-50 rounded-2xl h-25">
+      <div class="flex justify-evenly items-center bg-blue-50 rounded-2xl h-25 ">
         <div className="flex flex-col items-center gap-1.5 shrink-0 p-2">
           <button className="rounded-full h-14 w-14 bg-amber-50 overflow-hidden ring-2 ring-pink-500 ring-offset-4 ring-offset-white hover:scale-105 transition-transform duration-200 focus:outline-none">
             <img

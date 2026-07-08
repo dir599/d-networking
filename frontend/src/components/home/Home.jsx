@@ -13,9 +13,9 @@ const Home = () => {
         <div className="p-4">
           <Sidebar />
         </div>
-        <div>
-          <Stories />
-          <NewsFeed />
+        <div className="pt-4 gap-4">
+          <div className="mb-9"><Stories /></div>
+          <NewsFeed/>
         </div>
         <Suggestions />
       </div>
