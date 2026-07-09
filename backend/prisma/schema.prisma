@@ -27,7 +27,7 @@ model User {
   receivedMessages Message[]      @relation("Receive message")
   notifications    Notification[]
   likes            Like[]
-  following       Follow[]       @relation("Following")
+  following        Follow[]       @relation("Following")
   followers        Follow[]       @relation("Followers")
 }
 
