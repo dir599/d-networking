@@ -22,7 +22,7 @@ const getAllPosts = async (req, res) => {
         comments: true,
         _count: {
           select: {
-            likes: true,
+            postLikes: true,
             comments: true,
           },
         },
@@ -70,7 +70,7 @@ const getPostById = async (req, res) => {
         comments: true,
         _count: {
           select: {
-            likes: true,
+            postLikes: true,
             comments: true,
           },
         },
@@ -176,7 +176,7 @@ const updatePost = async (req, res) => {
         comments: true,
         _count: {
           select: {
-            likes: true,
+            postLikes: true,
             comments: true,
           },
         },
@@ -222,7 +222,7 @@ const deletePost = async (req, res) => {
         comments: true,
         _count: {
           select: {
-            likes: true,
+            postLikes: true,
             comments: true,
           },
         },

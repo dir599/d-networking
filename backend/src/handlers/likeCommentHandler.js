@@ -1,28 +1,28 @@
 import prisma from "../db/prisma.js";
-import { likeValidationSchema } from "../validators/likeValidator.js";
+import { likeCommentValidationSchema } from "../validators/likeValidator.js";
 import { idValidator } from "../validators/validator.js";
 
-export const toggleLikeInPost = async (req, res) => {
-  const result = likeValidationSchema.parse(req.body);
+export const toggleLikeInComment = async (req, res) => {
+  const result = likeCommentValidationSchema.parse(req.body);
   //todo: handle zod error and error handling using try-catch or asyncHandler and errorHandler middleware
-  const { userId, postId } = req.body;
+  const { userId, commentId } = req.body;
   try {
-    const existingLike = await prisma.postLike.findUnique({
+    const existingLike = await prisma.commentLike.findUnique({
       where: {
-        userId_postId: {
+        userId_commentId: {
           userId,
-          postId,
+          commentId,
         },
       },
     });
 
     // if liked already, remove the like
     if (existingLike) {
-      await prisma.postLike.delete({
+      await prisma.commentLike.delete({
         where: {
-          userId_postId: {
+          userId_commentId: {
             userId,
-            postId,
+            commentId,
           },
         },
       });
@@ -33,10 +33,10 @@ export const toggleLikeInPost = async (req, res) => {
     }
 
     // if not liked, add like
-    await prisma.postLike.create({
+    await prisma.commentLike.create({
       data: {
         userId,
-        postId,
+        commentId,
       },
     });
     res.status(200).json({
