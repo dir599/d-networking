@@ -73,6 +73,7 @@ const createUser = async (req, res) => {
         password: hashedPassword,
       },
       select: {
+        id: true,
         username: true,
         email: true,
         role: true,

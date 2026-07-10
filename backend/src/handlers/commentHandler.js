@@ -19,6 +19,11 @@ const getAllComments = async (req, res) => {
           },
         },
         post: true,
+        _count: {
+          select: {
+            commentLikes: true,
+          },
+        },
       },
     });
     if (!comments)
@@ -60,6 +65,11 @@ const getCommentById = async (req, res) => {
           },
         },
         post: true,
+        _count: {
+          select: {
+            commentLikes: true,
+          },
+        },
       },
     });
     if (!comment)
@@ -106,6 +116,11 @@ const createComment = async (req, res) => {
           },
         },
         post: true,
+        _count: {
+          select: {
+            commentLikes: true,
+          },
+        },
       },
     });
     res.status(201).json({
@@ -158,6 +173,11 @@ const updateComment = async (req, res) => {
           },
         },
         post: true,
+        _count: {
+          select: {
+            commentLikes: true,
+          },
+        },
       },
     });
     res.status(201).json({
@@ -197,6 +217,11 @@ const deleteComment = async (req, res) => {
           },
         },
         post: true,
+        _count: {
+          select: {
+            commentLikes: true,
+          },
+        },
       },
     });
     res.status(201).json({

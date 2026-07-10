@@ -17,6 +17,6 @@ router.put("/:id", updatePost);
 router.delete("/:id", deletePost);
 
 // like
-router.post("/:postId/like", toggleLikeInPost);
+router.post("/:id/like", toggleLikeInPost);
 
 export default router;
