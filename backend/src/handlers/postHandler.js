@@ -20,7 +20,12 @@ const getAllPosts = async (req, res) => {
           },
         },
         comments: true,
-        likes: true,
+        _count: {
+          select: {
+            likes: true,
+            comments: true,
+          },
+        },
       },
     });
     if (!posts)
@@ -63,7 +68,12 @@ const getPostById = async (req, res) => {
           },
         },
         comments: true,
-        likes: true,
+        _count: {
+          select: {
+            likes: true,
+            comments: true,
+          },
+        },
       },
     });
     if (!post)
@@ -110,8 +120,6 @@ const createPost = async (req, res) => {
             role: true,
           },
         },
-        comments: true,
-        likes: true,
       },
     });
     res.status(201).json({
@@ -166,7 +174,12 @@ const updatePost = async (req, res) => {
           },
         },
         comments: true,
-        likes: true,
+        _count: {
+          select: {
+            likes: true,
+            comments: true,
+          },
+        },
       },
     });
     res.status(201).json({
@@ -207,7 +220,12 @@ const deletePost = async (req, res) => {
           },
         },
         comments: true,
-        likes: true,
+        _count: {
+          select: {
+            likes: true,
+            comments: true,
+          },
+        },
       },
     });
     res.status(201).json({

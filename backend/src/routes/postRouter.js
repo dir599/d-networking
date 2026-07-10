@@ -6,6 +6,7 @@ import {
   getPostById,
   updatePost,
 } from "../handlers/postHandler.js";
+import { toggleLikeInPost } from "../handlers/likePostHandler.js";
 
 const router = Router();
 
@@ -14,5 +15,8 @@ router.get("/:id", getPostById);
 router.post("/", createPost);
 router.put("/:id", updatePost);
 router.delete("/:id", deletePost);
+
+// like
+router.post("/:postId/like", toggleLikeInPost);
 
 export default router;
