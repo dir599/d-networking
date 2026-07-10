@@ -18,19 +18,19 @@ A full-stack social networking platform built with **React**, **Node.js**, **Exp
 
 ### User Profiles
 
-- [ ]View user profiles
-- [ ]Update profile information
-- [ ]Profile image support
-- [X]User bio
-- [X]User roles
+- [ ] View user profiles
+- [ ] Update profile information
+- [ ] Profile image support
+- [X] User bio
+- [X] User roles
 
 ### Posts
 
-- [X]Create posts
-- [X]Edit posts
-- [X]Delete posts
-- [X]View all posts
-- [X]View individual posts
+- [X] Create posts
+- [X] Edit posts
+- [X] Delete posts
+- [X] View all posts
+- [X] View individual posts
 
 ### Comments
 
