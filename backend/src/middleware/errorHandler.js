@@ -1,11 +1,9 @@
-// import { process } from "zod/v4/core";
-
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
+import { Prisma } from "@prisma/client";
 import { ZodError } from "zod";
 
 export const errorHandler = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
-  err.status = err.statusCode || "error";
+  err.status = err.status || "error";
 
   if (process.env.NODE_ENV === "development") {
     return res.status(err.statusCode).json({
@@ -16,14 +14,7 @@ export const errorHandler = (err, req, res, next) => {
     });
   }
 
-  if (err.isOperational) {
-    return res.status(err.statusCode).json({
-      status: err.status,
-      message: err.message,
-      stack: err.stack,
-      error: err,
-    });
-  }
+  // zod error
   if (err instanceof ZodError) {
     return res.status(400).json({
       success: false,
@@ -31,7 +22,9 @@ export const errorHandler = (err, req, res, next) => {
       errors: err.flatten(),
     });
   }
-  if (err instanceof PrismaClientKnownRequestError) {
+
+  // prisma error
+  if (err instanceof Prisma.PrismaClientKnownRequestError) {
     switch (err.code) {
       case "P2002":
         return res.status(409).json({
@@ -65,6 +58,27 @@ export const errorHandler = (err, req, res, next) => {
           code: err.code,
         });
     }
+  }
+  if (err instanceof Prisma.PrismaClientValidationError) {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid query.",
+    });
+  }
+  if (err instanceof Prisma.PrismaClientInitializationError) {
+    return res.status(500).json({
+      success: false,
+      message: "Database connection failed.",
+    });
+  }
+
+  if (err.isOperational) {
+    return res.status(err.statusCode).json({
+      status: err.status,
+      message: err.message,
+      stack: err.stack,
+      error: err,
+    });
   }
 
   console.log("ERROR: ", err);

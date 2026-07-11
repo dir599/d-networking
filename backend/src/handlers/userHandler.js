@@ -13,25 +13,16 @@ const getAllUsers = asyncHandler(async (req, res) => {
       role: true,
     },
   });
-  if (!users)
-    return res.status(404).json({
-      message: "No users found",
-    });
+  if (!users) throw new Error("No users found");
+
   res.status(200).json({
     message: "Users fetched",
     data: users,
   });
-
-  return res.status(400).json({
-    message: "Failed to fetch users",
-    error: e,
-  });
 });
 
 const getUserById = asyncHandler(async (req, res) => {
-  const result = idValidator.parse(req.params.id);
-  // todo: handle validation errors
-  const { id } = req.params;
+  const { id } = idValidator.parse(req.params.id);
 
   const user = await prisma.user.findUnique({
     where: {
@@ -44,24 +35,17 @@ const getUserById = asyncHandler(async (req, res) => {
       role: true,
     },
   });
-  if (!user)
-    return res.status(404).json({
-      message: "No user with that id found",
-    });
+  if (!user) throw new Error("No user with that id found");
+
   res.status(200).json({
     message: "User fetched",
     data: user,
   });
-
-  return res.status(400).json({
-    message: "Failed to fetch user",
-    error: e,
-  });
 });
 const createUser = asyncHandler(async (req, res) => {
-  const result = createUserValidationSchema.parse(req.body);
-  // todo: handle this error correctly with zod error
-  const { username, email, password } = req.body;
+  const { username, email, password } = createUserValidationSchema.parse(
+    req.body,
+  );
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const user = await prisma.user.create({
@@ -82,28 +66,10 @@ const createUser = asyncHandler(async (req, res) => {
     message: "User created successfully",
     data: user,
   });
-
-  console.log(e);
-
-  return res.status(400).json({
-    success: false,
-    message: "Failed to create user",
-    error: e.message,
-  });
 });
 const updateUser = asyncHandler(async (req, res) => {
-  const idResult = idValidator.parse(req.params.id);
-  // todo: handle validation error
-  const { id } = req.params;
-  const result = createUserValidationSchema.parse(req.body);
-  // todo: handle this error correctly with zod error
-  if (!result) {
-    return res.status(400).json({
-      message: "Invalid data",
-    });
-  }
-  // todo: might need some changes in the future. This is just a placeholder
-  const { username, email, role } = req.body;
+  const { id } = idValidator.parse(req.params.id);
+  const { username, email, role } = createUserValidationSchema.parse(req.body);
 
   const user = await prisma.user.update({
     where: {
@@ -120,23 +86,16 @@ const updateUser = asyncHandler(async (req, res) => {
       role: true,
     },
   });
+  if (!user) throw new Error("No user with that id found");
+
   res.status(201).json({
     success: true,
     message: "User updated successfully",
     data: user,
   });
-
-  return res.status(400).json({
-    success: false,
-    message: "Failed to update user",
-    error: e,
-  });
 });
 const deleteUser = asyncHandler(async (req, res) => {
-  const result = idValidator.parse(req.params.id);
-  // todo: handle validation error
-  const { id } = req.params;
-  // todo: might need some changes in the future. This is just a placeholder
+  const { id } = idValidator.parse(req.params.id);
 
   const user = await prisma.user.delete({
     where: {
@@ -148,16 +107,12 @@ const deleteUser = asyncHandler(async (req, res) => {
       role: true,
     },
   });
+  if (!user) throw new Error("No user with that id found");
+
   res.status(201).json({
     success: true,
     message: "User deleted successfully",
     data: user,
-  });
-
-  return res.status(400).json({
-    success: false,
-    message: "Failed to delete user",
-    error: e,
   });
 });
 
