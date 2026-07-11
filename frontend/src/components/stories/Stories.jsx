@@ -54,7 +54,7 @@ const Stories = () => {
               alt="story"
               className="h-full w-full object-cover"
             />
-          </button>{" "}
+          </button>
           <span className="text-[11px] text-slate-600 dark:text-slate-400 font-semibold max-w-64 truncate">
             LactoMan
           </span>

@@ -30,7 +30,7 @@ const getAllUsers = async (req, res) => {
 };
 
 const getUserById = async (req, res) => {
-  const result = idValidator.parse(req.params);
+  const result = idValidator.parse(req.params.id);
   // todo: handle validation errors
   const { id } = req.params;
   try {
@@ -73,6 +73,7 @@ const createUser = async (req, res) => {
         password: hashedPassword,
       },
       select: {
+        id: true,
         username: true,
         email: true,
         role: true,
@@ -97,7 +98,7 @@ const updateUser = async (req, res) => {
   const idResult = idValidator.parse(req.params.id);
   // todo: handle validation error
   const { id } = req.params;
-  const result = createUserValidationSchema.parse(req.data);
+  const result = createUserValidationSchema.parse(req.body);
   // todo: handle this error correctly with zod error
   if (!result) {
     return res.status(400).json({

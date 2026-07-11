@@ -26,41 +26,56 @@ model User {
   sentMessages     Message[]      @relation("Send message")
   receivedMessages Message[]      @relation("Receive message")
   notifications    Notification[]
-  likes            Like[]
-  following       Follow[]       @relation("Following")
+  following        Follow[]       @relation("Following")
   followers        Follow[]       @relation("Followers")
+  postLikes        PostLike[]
+  commentLikes     CommentLike[]
 }
 
 model Post {
-  id        Int       @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   content   String
   image     String?
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime  @updatedAt @map("updated_at")
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
   authorId  Int
-  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author    User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
   comments  Comment[]
-  likes     Like[]
+  postLikes PostLike[]
 }
 
 model Comment {
-  id        Int      @id @default(autoincrement())
-  content   String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  authorId  Int
-  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  postId    Int
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  id           Int           @id @default(autoincrement())
+  content      String
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+  authorId     Int
+  author       User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  postId       Int
+  post         Post          @relation(fields: [postId], references: [id], onDelete: Cascade)
+  commentLikes CommentLike[]
 }
 
-model Like {
+model PostLike {
   id        Int      @id @default(autoincrement())
   userId    Int
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   postId    Int
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([userId, postId])
+}
+
+model CommentLike {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  commentId Int
+  comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([userId, commentId])
 }
 
 model Follow {
