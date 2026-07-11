@@ -1,33 +1,17 @@
 import prisma from "../db/prisma.js";
 import { asyncHandler } from "../middleware/asyncHandler.js";
+import {
+  createPostService,
+  deletePostService,
+  getAllPostsService,
+  getPostByIdService,
+  updatePostService,
+} from "../service/post.service.js";
 import { createPostValidationSchema } from "../validators/postValidator.js";
 import { idValidator } from "../validators/validator.js";
 
 const getAllPosts = asyncHandler(async (req, res) => {
-  const posts = await prisma.post.findMany({
-    select: {
-      id: true,
-      content: true,
-      image: true,
-      author: {
-        select: {
-          id: true,
-          username: true,
-          email: true,
-          profileImage: true,
-          bio: true,
-          role: true,
-        },
-      },
-      comments: true,
-      _count: {
-        select: {
-          postLikes: true,
-          comments: true,
-        },
-      },
-    },
-  });
+  const posts = await getAllPostsService();
   if (!posts) throw new Error("No posts found");
 
   res.status(200).json({
@@ -37,35 +21,9 @@ const getAllPosts = asyncHandler(async (req, res) => {
 });
 
 const getPostById = asyncHandler(async (req, res) => {
-  const { id } = idValidator.parse(req.params.id);
+  const { id } = idValidator.parse(req.params);
 
-  const post = await prisma.post.findUnique({
-    where: {
-      id,
-    },
-    select: {
-      id: true,
-      content: true,
-      image: true,
-      author: {
-        select: {
-          id: true,
-          username: true,
-          email: true,
-          profileImage: true,
-          bio: true,
-          role: true,
-        },
-      },
-      comments: true,
-      _count: {
-        select: {
-          postLikes: true,
-          comments: true,
-        },
-      },
-    },
-  });
+  const post = await getPostByIdService(id);
   if (!post) throw new Error("No post with that id found");
 
   res.status(200).json({
@@ -74,36 +32,11 @@ const getPostById = asyncHandler(async (req, res) => {
   });
 });
 const createPost = asyncHandler(async (req, res) => {
-  const { content, image, authorId } = createPostValidationSchema.parse(
+  const body = createPostValidationSchema.parse(
     req.body,
   );
 
-  const post = await prisma.post.create({
-    data: {
-      content,
-      image,
-      author: {
-        connect: {
-          id: authorId,
-        },
-      },
-    },
-    select: {
-      id: true,
-      content: true,
-      image: true,
-      author: {
-        select: {
-          id: true,
-          username: true,
-          email: true,
-          profileImage: true,
-          bio: true,
-          role: true,
-        },
-      },
-    },
-  });
+  const post = await createPostService(body)
   res.status(201).json({
     success: true,
     message: "Post created successfully",
@@ -111,42 +44,12 @@ const createPost = asyncHandler(async (req, res) => {
   });
 });
 const updatePost = asyncHandler(async (req, res) => {
-  const { id } = idValidator.parse(req.params.id);
-  const { content, image } = createPostValidationSchema.parse(req.body);
+  const { id } = idValidator.parse(req.params);
+  const body = createPostValidationSchema.parse(req.body);
 
-  const post = await prisma.post.update({
-    where: {
-      id,
-    },
-    data: {
-      content,
-      image,
-    },
-    select: {
-      id: true,
-      content: true,
-      image: true,
-      author: {
-        select: {
-          id: true,
-          username: true,
-          email: true,
-          profileImage: true,
-          bio: true,
-          role: true,
-        },
-      },
-      comments: true,
-      _count: {
-        select: {
-          postLikes: true,
-          comments: true,
-        },
-      },
-    },
-  });
+  const post = await updatePostService(id, body)
   if (!post) throw new Error("No post with that id found");
-  
+
   res.status(201).json({
     success: true,
     message: "User updated successfully",
@@ -154,34 +57,8 @@ const updatePost = asyncHandler(async (req, res) => {
   });
 });
 const deletePost = asyncHandler(async (req, res) => {
-  const { id } = idValidator.parse(req.params.id);
-  const post = await prisma.post.delete({
-    where: {
-      id,
-    },
-    select: {
-      id: true,
-      content: true,
-      image: true,
-      author: {
-        select: {
-          id: true,
-          username: true,
-          email: true,
-          profileImage: true,
-          bio: true,
-          role: true,
-        },
-      },
-      comments: true,
-      _count: {
-        select: {
-          postLikes: true,
-          comments: true,
-        },
-      },
-    },
-  });
+  const { id } = idValidator.parse(req.params);
+  const post = await deletePostService(id)
   if (!post) throw new Error("No post with that id found");
 
   res.status(201).json({
