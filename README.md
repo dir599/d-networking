@@ -177,9 +177,10 @@ npm install
 Create a `.env` file.
 
 ```env
+FRONTEND_PORT=
 PORT=
 POSTGRES_USER=
-POSTGRES_DB=d-
+POSTGRES_DB=d-networking
 POSTGRES_PASSWORD=
 POSTGRES_HOST=
 POSTGRES_PORT=pport
