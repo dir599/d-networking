@@ -28,29 +28,20 @@ const getAllPosts = asyncHandler(async (req, res) => {
       },
     },
   });
-  if (!posts)
-    return res.status(404).json({
-      message: "No posts found",
-    });
+  if (!posts) throw new Error("No posts found");
+
   res.status(200).json({
     message: "Posts fetched",
     data: posts,
   });
-
-  return res.status(400).json({
-    message: "Failed to fetch posts",
-    error: e,
-  });
 });
 
 const getPostById = asyncHandler(async (req, res) => {
-  const result = idValidator.parse(req.params.id);
-  // todo: handle validation errors
-  const { id } = req.params;
+  const { id } = idValidator.parse(req.params.id);
 
   const post = await prisma.post.findUnique({
     where: {
-      id: Number(id),
+      id,
     },
     select: {
       id: true,
@@ -75,24 +66,17 @@ const getPostById = asyncHandler(async (req, res) => {
       },
     },
   });
-  if (!post)
-    return res.status(404).json({
-      message: "No post with that id found",
-    });
+  if (!post) throw new Error("No post with that id found");
+
   res.status(200).json({
     message: "Post fetched",
     data: post,
   });
-
-  return res.status(400).json({
-    message: "Failed to fetch post",
-    error: e,
-  });
 });
 const createPost = asyncHandler(async (req, res) => {
-  const result = createPostValidationSchema.parse(req.body);
-  // todo: handle this error correctly with zod error
-  const { content, image, authorId } = req.body;
+  const { content, image, authorId } = createPostValidationSchema.parse(
+    req.body,
+  );
 
   const post = await prisma.post.create({
     data: {
@@ -125,32 +109,14 @@ const createPost = asyncHandler(async (req, res) => {
     message: "Post created successfully",
     data: post,
   });
-
-  console.log(e);
-
-  return res.status(400).json({
-    success: false,
-    message: "Failed to create post",
-    error: e.message,
-  });
 });
 const updatePost = asyncHandler(async (req, res) => {
-  const idResult = idValidator.parse(req.params.id);
-  // todo: handle validation error
-  const { id } = req.params;
-  const result = createPostValidationSchema.parse(req.body);
-  // todo: handle this error correctly with zod error
-  if (!result) {
-    return res.status(400).json({
-      message: "Invalid data",
-    });
-  }
-  // todo: might need some changes in the future. This is just a placeholder
-  const { content, image } = req.body;
+  const { id } = idValidator.parse(req.params.id);
+  const { content, image } = createPostValidationSchema.parse(req.body);
 
   const post = await prisma.post.update({
     where: {
-      id: Number(id),
+      id,
     },
     data: {
       content,
@@ -179,27 +145,19 @@ const updatePost = asyncHandler(async (req, res) => {
       },
     },
   });
+  if (!post) throw new Error("No post with that id found");
+  
   res.status(201).json({
     success: true,
     message: "User updated successfully",
     data: post,
   });
-
-  return res.status(400).json({
-    success: false,
-    message: "Failed to update post",
-    error: e,
-  });
 });
 const deletePost = asyncHandler(async (req, res) => {
-  const result = idValidator.parse(req.params.id);
-  // todo: handle validation error
-  const { id } = req.params;
-  // todo: might need some changes in the future. This is just a placeholder
-
+  const { id } = idValidator.parse(req.params.id);
   const post = await prisma.post.delete({
     where: {
-      id: Number(id),
+      id,
     },
     select: {
       id: true,
@@ -224,16 +182,12 @@ const deletePost = asyncHandler(async (req, res) => {
       },
     },
   });
+  if (!post) throw new Error("No post with that id found");
+
   res.status(201).json({
     success: true,
     message: "Post deleted successfully",
     data: post,
-  });
-
-  return res.status(400).json({
-    success: false,
-    message: "Failed to delete post",
-    error: e,
   });
 });
 

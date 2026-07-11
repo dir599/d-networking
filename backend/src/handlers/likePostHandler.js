@@ -4,9 +4,7 @@ import { likeValidationSchema } from "../validators/likeValidator.js";
 import { idValidator } from "../validators/validator.js";
 
 export const toggleLikeInPost = asyncHandler(async (req, res) => {
-  const result = likeValidationSchema.parse(req.body);
-  //todo: handle zod error and error handling using try-catch or asyncHandler and errorHandler middleware
-  const { userId, postId } = req.body;
+  const { userId, postId } = likeValidationSchema.parse(req.body);
   const existingLike = await prisma.postLike.findUnique({
     where: {
       userId_postId: {
@@ -42,10 +40,5 @@ export const toggleLikeInPost = asyncHandler(async (req, res) => {
   res.status(200).json({
     success: true,
     liked: true,
-  });
-  console.log(e);
-  res.json({
-    message: "Something went wrong",
-    error: e.message,
   });
 });
