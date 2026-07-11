@@ -28,7 +28,7 @@ const navItems = [
 const Sidebar = () => {
   const [activeItem, setActiveItem] = useState("News feed");
   return (
-    <div className="w-64 min-h-screen bg-white rounded-2xl flex flex-col gap-6 shadow-sm border border-slate-100 ">
+    <div className="w-64 h-full bg-white rounded-2xl flex flex-col gap-6 shadow-sm border border-slate-100 ">
       {/* Sidebar Header */}
       <div className="flex items-center justify-between rounded-xl bg-slate-50 border border-slate-100 p-4">
         <div className="flex items-center">

@@ -90,7 +90,12 @@ import luffy from "../../assets/stories/luffy.jpg";
 
 const Suggestions = () => {
   const suggestionsData = [
-    { id: 1, img: luffy, title: "Luffy", desc: "I am pirate 🤴", active: true },
+    { 
+      id: 1, 
+      img: luffy, 
+      title: "Luffy", 
+      desc: "I am pirate 🤴", 
+      active: true },
     {
       id: 2,
       img: ace,
@@ -134,7 +139,7 @@ const Suggestions = () => {
           //   /* 1. Added justify-center to push the image and text block into the middle */
           <div
             key={item.id}
-            className="flex items-center px-2 gap-3 w-full"
+            className="flex items-center px-2 gap-3 w-full text-left"
           >
             <img
               src={item.img}
@@ -144,8 +149,8 @@ const Suggestions = () => {
               }`}
             />
             {/* 2. Added items-center & text-center to stack and center the headings  */}
-            <div className="flex flex-col items-center text-center">
-              <h4 className="text-sm font-semibold text-slate-800 leading-tight">
+            <div className="flex flex-col items-center text-justify">
+              <h4 className="text-sm font-semibold text-slate-800 leading-tight w-full">
                 {item.title}
               </h4>
               <span className="text-[11px] text-slate-500 dark:text-slate-400">
