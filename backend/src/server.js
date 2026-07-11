@@ -3,7 +3,7 @@ import routes from "./routes/routes.js";
 import cors from "cors";
 
 import "dotenv/config";
-import { globalMiddleWare } from "./middleware/error_middleware.js";
+import { errorHandler } from "./middleware/errorHandler.js";
 
 const PORT = process.env.PORT;
 const frontendPort = process.env.FRONTEND_PORT;
@@ -17,7 +17,7 @@ app.use(
 
 app.use("/", routes);
 
-app.use(globalMiddleWare);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`);
