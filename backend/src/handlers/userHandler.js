@@ -1,18 +1,17 @@
 import prisma from "../db/prisma.js";
 import { asyncHandler } from "../middleware/asyncHandler.js";
+import {
+  createUserService,
+  deleteUserService,
+  getAllUsersService,
+  getUserByIdService,
+  updateUserService,
+} from "../service/user.service.js";
 import { createUserValidationSchema } from "../validators/userValidator.js";
 import { idValidator } from "../validators/validator.js";
-import bcrypt from "bcrypt";
 
 const getAllUsers = asyncHandler(async (req, res) => {
-  const users = await prisma.user.findMany({
-    select: {
-      id: true,
-      username: true,
-      email: true,
-      role: true,
-    },
-  });
+  const users = await getAllUsersService();
   if (!users) throw new Error("No users found");
 
   res.status(200).json({
@@ -22,19 +21,9 @@ const getAllUsers = asyncHandler(async (req, res) => {
 });
 
 const getUserById = asyncHandler(async (req, res) => {
-  const { id } = idValidator.parse(req.params.id);
+  const { id } = idValidator.parse(req.params);
 
-  const user = await prisma.user.findUnique({
-    where: {
-      id: Number(id),
-    },
-    select: {
-      id: true,
-      username: true,
-      email: true,
-      role: true,
-    },
-  });
+  const user = await getUserByIdService(id);
   if (!user) throw new Error("No user with that id found");
 
   res.status(200).json({
@@ -43,24 +32,9 @@ const getUserById = asyncHandler(async (req, res) => {
   });
 });
 const createUser = asyncHandler(async (req, res) => {
-  const { username, email, password } = createUserValidationSchema.parse(
-    req.body,
-  );
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const body = createUserValidationSchema.parse(req.body);
 
-  const user = await prisma.user.create({
-    data: {
-      username,
-      email,
-      password: hashedPassword,
-    },
-    select: {
-      id: true,
-      username: true,
-      email: true,
-      role: true,
-    },
-  });
+  const user = await createUserService(body);
   res.status(201).json({
     success: true,
     message: "User created successfully",
@@ -68,24 +42,10 @@ const createUser = asyncHandler(async (req, res) => {
   });
 });
 const updateUser = asyncHandler(async (req, res) => {
-  const { id } = idValidator.parse(req.params.id);
-  const { username, email, role } = createUserValidationSchema.parse(req.body);
+  const { id } = idValidator.parse(req.params);
+  const body = createUserValidationSchema.parse(req.body);
 
-  const user = await prisma.user.update({
-    where: {
-      id: Number(id),
-    },
-    data: {
-      username,
-      email,
-      role,
-    },
-    select: {
-      username: true,
-      email: true,
-      role: true,
-    },
-  });
+  const user = await updateUserService(id, body);
   if (!user) throw new Error("No user with that id found");
 
   res.status(201).json({
@@ -95,18 +55,9 @@ const updateUser = asyncHandler(async (req, res) => {
   });
 });
 const deleteUser = asyncHandler(async (req, res) => {
-  const { id } = idValidator.parse(req.params.id);
+  const { id } = idValidator.parse(req.params);
 
-  const user = await prisma.user.delete({
-    where: {
-      id: Number(id),
-    },
-    select: {
-      username: true,
-      email: true,
-      role: true,
-    },
-  });
+  const user = await deleteUserService(id);
   if (!user) throw new Error("No user with that id found");
 
   res.status(201).json({
