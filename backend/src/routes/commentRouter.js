@@ -9,8 +9,7 @@ import {
 import { toggleLikeInComment } from "../handlers/likeCommentHandler.js";
 
 const router = Router();
-
-router.get("/", getAllComments);
+router.get("/comment", getAllComments);
 router.get("/:id", getCommentById);
 router.post("/", createComment);
 router.put("/:id", updateComment);
