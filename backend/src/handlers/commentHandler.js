@@ -21,7 +21,7 @@ const getAllComments = asyncHandler(async (req, res) => {
 });
 
 const getCommentById = asyncHandler(async (req, res) => {
-  const { id } = idValidator.parse(req.params);
+  const id = idValidator.parse(req.params.id);
 
   const comment = await getCommentByIdService(id);
   if (!comment) throw new Error("No comment with that id found");
@@ -42,7 +42,7 @@ const createComment = asyncHandler(async (req, res) => {
   });
 });
 const updateComment = asyncHandler(async (req, res) => {
-  const { id } = idValidator.parse(req.params);
+  const id = idValidator.parse(req.params.id);
   const body = createCommentValidationSchema.parse(req.body);
 
   const comment = await updateCommentService(id, body);
@@ -55,7 +55,7 @@ const updateComment = asyncHandler(async (req, res) => {
   });
 });
 const deleteComment = asyncHandler(async (req, res) => {
-  const { id } = idValidator.parse(req.params);
+  const id = idValidator.parse(req.params.id);
 
   const comment = await deleteCommentService(id);
   if (!comment) throw new Error("No comment with that id found");

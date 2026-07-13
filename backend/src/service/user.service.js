@@ -8,6 +8,12 @@ const getAllUsersService = async () => {
       username: true,
       email: true,
       role: true,
+      _count: {
+        select: {
+          followers: true,
+          following: true,
+        },
+      },
     },
   });
 };
@@ -22,6 +28,12 @@ const getUserByIdService = async (id) => {
       username: true,
       email: true,
       role: true,
+      _count: {
+        select: {
+          followers: true,
+          following: true,
+        },
+      },
     },
   });
 };
@@ -58,6 +70,12 @@ const updateUserService = async (id, body) => {
       username: true,
       email: true,
       role: true,
+      _count: {
+        select: {
+          followers: true,
+          following: true,
+        },
+      },
     },
   });
 };
@@ -70,6 +88,12 @@ const deleteUserService = async (id) => {
       username: true,
       email: true,
       role: true,
+      _count: {
+        select: {
+          followers: true,
+          following: true,
+        },
+      },
     },
   });
 };

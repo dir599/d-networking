@@ -9,13 +9,15 @@ import {
 import { toggleLikeInComment } from "../handlers/likeCommentHandler.js";
 
 const router = Router();
-router.get("/comment", getAllComments);
+
+// /comments
+router.get("/", getAllComments);
 router.get("/:id", getCommentById);
 router.post("/", createComment);
 router.put("/:id", updateComment);
 router.delete("/:id", deleteComment);
 
 // like
-router.post("/:id/like", toggleLikeInComment);
+router.post("/like/:id", toggleLikeInComment);
 
 export default router;

@@ -21,7 +21,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 });
 
 const getUserById = asyncHandler(async (req, res) => {
-  const { id } = idValidator.parse(req.params);
+  const id = idValidator.parse(req.params.id);
 
   const user = await getUserByIdService(id);
   if (!user) throw new Error("No user with that id found");
@@ -42,7 +42,7 @@ const createUser = asyncHandler(async (req, res) => {
   });
 });
 const updateUser = asyncHandler(async (req, res) => {
-  const { id } = idValidator.parse(req.params);
+  const id = idValidator.parse(req.params.id);
   const body = createUserValidationSchema.parse(req.body);
 
   const user = await updateUserService(id, body);
@@ -55,7 +55,7 @@ const updateUser = asyncHandler(async (req, res) => {
   });
 });
 const deleteUser = asyncHandler(async (req, res) => {
-  const { id } = idValidator.parse(req.params);
+  const id = idValidator.parse(req.params.id);
 
   const user = await deleteUserService(id);
   if (!user) throw new Error("No user with that id found");
