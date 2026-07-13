@@ -2,7 +2,9 @@ import { Router } from "express";
 import userRouter from "./userRouter.js";
 import postRouter from "./postRouter.js";
 import commentRouter from "./commentRouter.js";
-import usersRouter from './userRouter.js'
+import usersRouter from "./userRouter.js";
+import { uploadHandler } from "../handlers/uploadHandler.js";
+import { upload } from "../middleware/upload.middleware.js";
 
 const router = Router();
 
@@ -13,6 +15,7 @@ router.use("/users", userRouter);
 router.use("/posts", postRouter);
 router.use("/posts", postRouter);
 router.use("/comments", commentRouter);
-router.use("/users", usersRouter )
+router.use("/users", usersRouter);
+router.use("/upload", upload.single("test"), uploadHandler);
 
 export default router;
