@@ -30,6 +30,7 @@ model User {
   followers        Follow[]       @relation("Followers")
   postLikes        PostLike[]
   commentLikes     CommentLike[]
+  stories          Story[]
 }
 
 model Post {
@@ -119,4 +120,11 @@ model Notification {
   isRead      Boolean          @default(false)
   referenceId Int?
   createdAt   DateTime         @default(now()) @map("created_at")
+}
+
+model Story {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now()) @map("created_at")
 }
