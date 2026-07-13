@@ -6,10 +6,8 @@ const commentIdValidator = z.coerce.number().int().nonnegative();
 
 export const likeValidationSchema = z.object({
   userId: userIdValidator,
-  postId: postIdValidator,
 });
 
 export const likeCommentValidationSchema = z.object({
   userId: userIdValidator,
-  commentId: commentIdValidator,
 });

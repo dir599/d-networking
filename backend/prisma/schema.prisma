@@ -82,10 +82,10 @@ model Follow {
   id Int @id @default(autoincrement())
 
   followerId Int
-  follower   User @relation("Following", fields: [followerId], references: [id])
+  follower   User @relation("Followers", fields: [followerId], references: [id])
 
   followingId Int
-  following   User @relation("Followers", fields: [followingId], references: [id])
+  following   User @relation("Following", fields: [followingId], references: [id])
 
   createdAt DateTime @default(now()) @map("created_at")
 

@@ -21,7 +21,7 @@ const getAllPosts = asyncHandler(async (req, res) => {
 });
 
 const getPostById = asyncHandler(async (req, res) => {
-  const { id } = idValidator.parse(req.params);
+  const id = idValidator.parse(req.params.id);
 
   const post = await getPostByIdService(id);
   if (!post) throw new Error("No post with that id found");
@@ -32,11 +32,9 @@ const getPostById = asyncHandler(async (req, res) => {
   });
 });
 const createPost = asyncHandler(async (req, res) => {
-  const body = createPostValidationSchema.parse(
-    req.body,
-  );
+  const body = createPostValidationSchema.parse(req.body);
 
-  const post = await createPostService(body)
+  const post = await createPostService(body);
   res.status(201).json({
     success: true,
     message: "Post created successfully",
@@ -44,10 +42,10 @@ const createPost = asyncHandler(async (req, res) => {
   });
 });
 const updatePost = asyncHandler(async (req, res) => {
-  const { id } = idValidator.parse(req.params);
+  const id = idValidator.parse(req.params.id);
   const body = createPostValidationSchema.parse(req.body);
 
-  const post = await updatePostService(id, body)
+  const post = await updatePostService(id, body);
   if (!post) throw new Error("No post with that id found");
 
   res.status(201).json({
@@ -57,8 +55,8 @@ const updatePost = asyncHandler(async (req, res) => {
   });
 });
 const deletePost = asyncHandler(async (req, res) => {
-  const { id } = idValidator.parse(req.params);
-  const post = await deletePostService(id)
+  const id = idValidator.parse(req.params.id);
+  const post = await deletePostService(id);
   if (!post) throw new Error("No post with that id found");
 
   res.status(201).json({

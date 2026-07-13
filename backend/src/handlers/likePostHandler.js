@@ -4,12 +4,13 @@ import { likeValidationSchema } from "../validators/likeValidator.js";
 import { idValidator } from "../validators/validator.js";
 
 export const toggleLikeInPost = asyncHandler(async (req, res) => {
-  const { userId, postId } = likeValidationSchema.parse(req.body);
+  const { userId } = likeValidationSchema.parse(req.body);
+  const id = idValidator.parse(req.params.id);
   const existingLike = await prisma.postLike.findUnique({
     where: {
       userId_postId: {
         userId,
-        postId,
+        postId: id,
       },
     },
   });
@@ -20,7 +21,7 @@ export const toggleLikeInPost = asyncHandler(async (req, res) => {
       where: {
         userId_postId: {
           userId,
-          postId,
+          postId: id,
         },
       },
     });
@@ -34,7 +35,7 @@ export const toggleLikeInPost = asyncHandler(async (req, res) => {
   await prisma.postLike.create({
     data: {
       userId,
-      postId,
+      postId: id,
     },
   });
   res.status(200).json({

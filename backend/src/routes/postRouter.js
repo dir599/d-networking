@@ -10,6 +10,7 @@ import { toggleLikeInPost } from "../handlers/likePostHandler.js";
 
 const router = Router();
 
+// /posts 
 router.get("/", getAllPosts);
 router.get("/:id", getPostById);
 router.post("/", createPost);
@@ -17,6 +18,6 @@ router.put("/:id", updatePost);
 router.delete("/:id", deletePost);
 
 // like
-router.post("/:id/like", toggleLikeInPost);
+router.post("/like/:id", toggleLikeInPost);
 
 export default router;
