@@ -6,13 +6,14 @@ const fileNamePath = fileURLToPath(import.meta.url);
 const dirpath = path.dirname(fileNamePath);
 
 const storage = multer.diskStorage({
-  destination: (req, res, cb) => {
+  destination: (req, file, cb) => {
     cb(null, path.join(dirpath, "..", "uploads"));
   },
-  filename: (req, res, cb) => {
-    let suffix = Date.now() + "-" + Math.round(Math.random() * "1e9");
+  filename: (req, file, cb) => {
+    const name = path.parse(file.originalname).name
+    let suffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
     let extension = path.extname(file.originalname);
-    cb(null, `${file.filename}-${suffix}${extension}`);
+    cb(null, `${name}-${suffix}${extension}`);
   },
 });
 

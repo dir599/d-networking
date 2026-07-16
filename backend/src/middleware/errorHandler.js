@@ -84,6 +84,6 @@ export const errorHandler = (err, req, res, next) => {
   console.log("ERROR: ", err);
   return res.status(500).json({
     status: "error",
-    message: "something went wrong Internally",
+    message: "Something went wrong internally",
   });
 };
