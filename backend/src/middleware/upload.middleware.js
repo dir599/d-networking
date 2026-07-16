@@ -10,9 +10,10 @@ const storage = multer.diskStorage({
     cb(null, path.join(dirpath, "..", "uploads"));
   },
   filename: (req, file, cb) => {
-    let suffix = Date.now() + "-" + Math.round(Math.random() * "1e9");
+    const name = path.parse(file.originalname).name
+    let suffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
     let extension = path.extname(file.originalname);
-    cb(null, `${file.filename}-${suffix}${extension}`);
+    cb(null, `${name}-${suffix}${extension}`);
   },
 });
 

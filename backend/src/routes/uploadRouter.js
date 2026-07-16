@@ -2,7 +2,7 @@ import { Router } from "express";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import { upload } from "../middleware/upload.middleware";
+import { upload } from "../middleware/upload.middleware.js";
 import {
   uploadHandler,
   uploadMultipleFiles,
