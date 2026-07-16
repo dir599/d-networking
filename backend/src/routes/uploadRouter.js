@@ -8,6 +8,7 @@ import {
   uploadMultipleFiles,
 } from "../handlers/uploadHandler.js";
 
+// /upload 
 const fileNamePath = fileURLToPath(import.meta.url);
 const dirpath = path.dirname(fileNamePath);
 
