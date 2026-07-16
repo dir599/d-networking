@@ -37,23 +37,7 @@ const getUserByIdService = async (id) => {
     },
   });
 };
-const createUserService = async (body) => {
-  const { username, email, password } = body;
-  const hashedPassword = await bcrypt.hash(password, 10);
-  return await prisma.user.create({
-    data: {
-      username,
-      email,
-      password: hashedPassword,
-    },
-    select: {
-      id: true,
-      username: true,
-      email: true,
-      role: true,
-    },
-  });
-};
+
 const updateUserService = async (id, body) => {
   const { username, email, role } = body;
 
@@ -79,6 +63,7 @@ const updateUserService = async (id, body) => {
     },
   });
 };
+
 const deleteUserService = async (id) => {
   return await prisma.user.delete({
     where: {
