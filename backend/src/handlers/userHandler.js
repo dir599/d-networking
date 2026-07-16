@@ -31,16 +31,7 @@ const getUserById = asyncHandler(async (req, res) => {
     data: user,
   });
 });
-const createUser = asyncHandler(async (req, res) => {
-  const body = createUserValidationSchema.parse(req.body);
 
-  const user = await createUserService(body);
-  res.status(201).json({
-    success: true,
-    message: "User created successfully",
-    data: user,
-  });
-});
 const updateUser = asyncHandler(async (req, res) => {
   const id = idValidator.parse(req.params.id);
   const body = createUserValidationSchema.parse(req.body);
@@ -54,6 +45,7 @@ const updateUser = asyncHandler(async (req, res) => {
     data: user,
   });
 });
+
 const deleteUser = asyncHandler(async (req, res) => {
   const id = idValidator.parse(req.params.id);
 
@@ -67,4 +59,4 @@ const deleteUser = asyncHandler(async (req, res) => {
   });
 });
 
-export { getAllUsers, getUserById, createUser, updateUser, deleteUser };
+export { getAllUsers, getUserById, updateUser, deleteUser };

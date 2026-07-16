@@ -4,6 +4,7 @@ import postRouter from "./postRouter.js";
 import commentRouter from "./commentRouter.js";
 import usersRouter from "./userRouter.js";
 import uploadRouter from "./uploadRouter.js";
+import authRouter from "./authRouter.js";
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use("/posts", postRouter);
 router.use("/comments", commentRouter);
 router.use("/users", usersRouter);
 router.use("/upload", uploadRouter);
+router.use("/auth", authRouter);
 
 export default router;
