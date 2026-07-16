@@ -1,4 +1,4 @@
-export const uploadHandler = () => {
+export const uploadHandler = (req, res) => {
   if (!req.file) {
     return res.status(400).json({
       message: "No file uploaded",
