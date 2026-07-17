@@ -47,7 +47,10 @@ const updateUser = asyncHandler(async (req, res) => {
 
 const deleteUser = asyncHandler(async (req, res) => {
   const id = idValidator.parse(req.params.id);
-
+  if (id !== req.user.id && req.user.role !== "ADMIN")
+    return res.status(403).json({
+      message: "Forbidden",
+    });
   const user = await deleteUserService(id);
   if (!user) return res.json({ message: "No user with that id found" });
 

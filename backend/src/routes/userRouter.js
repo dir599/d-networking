@@ -15,7 +15,7 @@ const router = Router();
 router.get("/", getAllUsers);
 router.get("/:id", getUserById);
 router.put("/:id", updateUser);
-router.delete("/:id", authorize("ADMIN"), deleteUser);
+router.delete("/:id", deleteUser);
 
 // follow
 router.post("/follow/:id", toggleFollow);

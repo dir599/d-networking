@@ -56,13 +56,25 @@ const updatePost = asyncHandler(async (req, res) => {
 });
 const deletePost = asyncHandler(async (req, res) => {
   const id = idValidator.parse(req.params.id);
-  const post = await deletePostService(id);
+  const post = await prisma.post.findUnique({
+    where: {
+      id,
+    },
+  });
+  if (
+    post.authorId !== req.user.id &&
+    (req.user.role !== "ADMIN" || req.user.role !== "MODERATOR")
+  )
+    return res.status(403).json({
+      message: "Forbidden",
+    });
+  const deletedPost = await deletePostService(id);
   if (!post) throw new Error("No post with that id found");
 
   res.status(201).json({
     success: true,
     message: "Post deleted successfully",
-    data: post,
+    data: deletedPost,
   });
 });
 
