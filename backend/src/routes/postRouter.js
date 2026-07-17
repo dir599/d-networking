@@ -7,15 +7,16 @@ import {
   updatePost,
 } from "../handlers/postHandler.js";
 import { toggleLikeInPost } from "../handlers/likePostHandler.js";
+import { authorize } from "../middleware/role.middleware.js";
 
 const router = Router();
 
-// /posts 
+// /posts
 router.get("/", getAllPosts);
 router.get("/:id", getPostById);
 router.post("/", createPost);
 router.put("/:id", updatePost);
-router.delete("/:id", deletePost);
+router.delete("/:id", authorize("ADMIN", "MODERATOR"), deletePost);
 
 // like
 router.post("/like/:id", toggleLikeInPost);

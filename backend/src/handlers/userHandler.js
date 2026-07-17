@@ -49,7 +49,7 @@ const deleteUser = asyncHandler(async (req, res) => {
   const id = idValidator.parse(req.params.id);
 
   const user = await deleteUserService(id);
-  if (!user) throw new Error("No user with that id found");
+  if (!user) return res.json({ message: "No user with that id found" });
 
   res.status(201).json({
     success: true,

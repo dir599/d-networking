@@ -7,6 +7,7 @@ import {
   updateComment,
 } from "../handlers/commentHandler.js";
 import { toggleLikeInComment } from "../handlers/likeCommentHandler.js";
+import { authorize } from "../middleware/role.middleware.js";
 
 const router = Router();
 
@@ -15,7 +16,11 @@ router.get("/", getAllComments);
 router.get("/:id", getCommentById);
 router.post("/", createComment);
 router.put("/:id", updateComment);
-router.delete("/:id", deleteComment);
+router.delete(
+  "/:id",
+  authorize("ADMIN", "MODERATOR"),
+  deleteComment,
+);
 
 // like
 router.post("/like/:id", toggleLikeInComment);
