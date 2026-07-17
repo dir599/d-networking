@@ -1,7 +1,8 @@
-import { loginUserValidationSchema } from "../../../../../studentrecord_workstation/backend/src/validators/authValidator";
-import { asyncHandler } from "../middleware/asyncHandler";
-import { registerUserService } from "../service/auth.service";
-import { registerUserValidator } from "../validators/authValidator";
+import prisma from "../db/prisma.js";
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import { asyncHandler } from "../middleware/asyncHandler.js";
+import { loginUserValidator, registerUserValidator } from "../validators/authValidator.js";
 
 const registerUser = asyncHandler(async (req, res) => {
   const { username, email, password } = registerUserValidator.parse(req.body);
@@ -27,7 +28,7 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 const loginUser = asyncHandler(async (req, res) => {
-  const { email, password } = loginUserValidationSchema.parse(req.body);
+  const { email, password } = loginUserValidator.parse(req.body);
   const user = await prisma.user.findUnique({
     where: {
       email,
@@ -40,7 +41,7 @@ const loginUser = asyncHandler(async (req, res) => {
     {
       id: user.id,
     },
-    secretKey,
+    process.env.JWT_SECRET,
     {
       expiresIn: "1d",
     },

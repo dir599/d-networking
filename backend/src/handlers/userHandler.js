@@ -1,7 +1,6 @@
 import prisma from "../db/prisma.js";
 import { asyncHandler } from "../middleware/asyncHandler.js";
 import {
-  createUserService,
   deleteUserService,
   getAllUsersService,
   getUserByIdService,

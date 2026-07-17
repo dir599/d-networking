@@ -86,7 +86,6 @@ const deleteUserService = async (id) => {
 export {
   getAllUsersService,
   getUserByIdService,
-  createUserService,
   updateUserService,
   deleteUserService,
 };

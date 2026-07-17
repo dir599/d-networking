@@ -6,6 +6,7 @@ import {
   updateUser,
 } from "../handlers/userHandler.js";
 import { toggleFollow } from "../handlers/followHandler.js";
+import { authMiddleware } from "../middleware/authMiddleware.js";
 
 const router = Router();
 
