@@ -16,7 +16,7 @@ router.get("/", getAllPosts);
 router.get("/:id", getPostById);
 router.post("/", createPost);
 router.put("/:id", updatePost);
-router.delete("/:id", authorize("ADMIN", "MODERATOR"), deletePost);
+router.delete("/:id", deletePost);
 
 // like
 router.post("/like/:id", toggleLikeInPost);

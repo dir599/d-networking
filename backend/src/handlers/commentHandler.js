@@ -56,14 +56,25 @@ const updateComment = asyncHandler(async (req, res) => {
 });
 const deleteComment = asyncHandler(async (req, res) => {
   const id = idValidator.parse(req.params.id);
-
-  const comment = await deleteCommentService(id);
+  const comment = await prisma.post.findUnique({
+    where: {
+      id,
+    },
+  });
+  if (
+    comment.authorId !== req.user.id &&
+    (req.user.role !== "ADMIN" || req.user.role !== "MODERATOR")
+  )
+    return res.status(403).json({
+      message: "Forbidden",
+    });
+  const deletedComment = await deleteCommentService(id);
   if (!comment) throw new Error("No comment with that id found");
 
   res.status(201).json({
     success: true,
     message: "Comment deleted successfully",
-    data: comment,
+    data: deletedComment,
   });
 });
 
