@@ -7,6 +7,7 @@ import {
 } from "../handlers/userHandler.js";
 import { toggleFollow } from "../handlers/followHandler.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
+import { authorize } from "../middleware/role.middleware.js";
 
 const router = Router();
 
@@ -14,7 +15,7 @@ const router = Router();
 router.get("/", getAllUsers);
 router.get("/:id", getUserById);
 router.put("/:id", updateUser);
-router.delete("/:id", deleteUser);
+router.delete("/:id", authorize("ADMIN"), deleteUser);
 
 // follow
 router.post("/follow/:id", toggleFollow);

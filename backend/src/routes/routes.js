@@ -9,15 +9,19 @@ import { authMiddleware } from "../middleware/authMiddleware.js";
 
 const router = Router();
 
+// auth
+router.use("/auth", authRouter);
+
 router.get("/", (req, res) => {
   res.send("this is testing api.");
 });
+
+// api routes
 router.use("/users", authMiddleware, userRouter);
-router.use("/posts", postRouter);
-router.use("/posts", postRouter);
-router.use("/comments", commentRouter);
-router.use("/users", usersRouter);
-router.use("/upload", uploadRouter);
-router.use("/auth", authRouter);
+router.use("/posts", authMiddleware, postRouter);
+router.use("/posts", authMiddleware, postRouter);
+router.use("/comments", authMiddleware, commentRouter);
+router.use("/users", authMiddleware, usersRouter);
+router.use("/upload", authMiddleware, uploadRouter);
 
 export default router;

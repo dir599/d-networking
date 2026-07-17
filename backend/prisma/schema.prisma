@@ -11,6 +11,12 @@ datasource db {
   provider = "postgresql"
 }
 
+enum Role {
+  USER
+  ADMIN
+  MODERATOR
+}
+
 model User {
   id               Int            @id @default(autoincrement())
   username         String
@@ -18,7 +24,7 @@ model User {
   password         String
   profileImage     String?        @default("/uploads/default.png") @map("profile_image")
   bio              String?
-  role             String         @default("user")
+  role             Role           @default(USER)
   createdAt        DateTime       @default(now()) @map("created_at")
   updatedAt        DateTime       @updatedAt @map("updated_at")
   posts            Post[]
@@ -83,10 +89,10 @@ model Follow {
   id Int @id @default(autoincrement())
 
   followerId Int
-  follower   User @relation("Followers", fields: [followerId], references: [id])
+  follower   User @relation("Followers", fields: [followerId], references: [id], onDelete: Cascade)
 
   followingId Int
-  following   User @relation("Following", fields: [followingId], references: [id])
+  following   User @relation("Following", fields: [followingId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now()) @map("created_at")
 
@@ -96,9 +102,9 @@ model Follow {
 model Message {
   id         Int      @id @default(autoincrement())
   senderId   Int
-  sender     User     @relation("Send message", fields: [senderId], references: [id])
+  sender     User     @relation("Send message", fields: [senderId], references: [id], onDelete: Cascade)
   receiverId Int
-  receiver   User     @relation("Receive message", fields: [receiverId], references: [id])
+  receiver   User     @relation("Receive message", fields: [receiverId], references: [id], onDelete: Cascade)
   content    String
   isRead     Boolean  @default(false)
   createdAt  DateTime @default(now()) @map("created_at")
@@ -114,7 +120,7 @@ enum NotificationType {
 model Notification {
   id          Int              @id @default(autoincrement())
   userId      Int
-  user        User             @relation(fields: [userId], references: [id])
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   type        NotificationType
   message     String
   isRead      Boolean          @default(false)
@@ -125,6 +131,6 @@ model Notification {
 model Story {
   id        Int      @id @default(autoincrement())
   userId    Int
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now()) @map("created_at")
 }
