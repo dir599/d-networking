@@ -6,13 +6,14 @@ import Stories from "./components/stories/Stories";
 import NewsFeedTest from "./components/newsFeed/NewsFeedTest";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import NewNewsfeed from "./components/newsFeed/newNews";
 
 const App = () => {
   return (
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/test" element={<NewsFeedTest />} />
+        <Route path="/test" element={<NewNewsfeed />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
       </Routes>
