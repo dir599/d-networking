@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 
 const NewsFeedTest = () => {
   const [posts, setPosts] = useState([]);
-  const backendPort = import.meta.env.VITE_BACKEND_PORT;
+  const backendURL = import.meta.env.VITE_BACKEND_URL;
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:${backendPort}/posts`, {
+        const response = await fetch(`${backendURL}/posts`, {
           method: "GET",
           headers: {
             "content-type": "application/json",
@@ -25,11 +25,14 @@ const NewsFeedTest = () => {
     fetchData();
   }, []);
   return (
-    <div>
+    <ul>
       {posts.map((post) => (
-        <h2 key={post.id}>{post.image}</h2>
+        <li key={post.id}>
+          <h2>{post.author.username}</h2>
+          <h2>{post.content}</h2>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 

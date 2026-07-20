@@ -17,11 +17,11 @@ router.get("/", (req, res) => {
 });
 
 // api routes
-router.use("/users", authMiddleware, userRouter);
-router.use("/posts", authMiddleware, postRouter);
-router.use("/posts", authMiddleware, postRouter);
-router.use("/comments", authMiddleware, commentRouter);
-router.use("/users", authMiddleware, usersRouter);
-router.use("/upload", authMiddleware, uploadRouter);
+router.use("/users", userRouter);
+router.use("/posts", postRouter);
+router.use("/posts", postRouter);
+router.use("/comments", commentRouter);
+router.use("/users", usersRouter);
+router.use("/upload", uploadRouter);
 
 export default router;
