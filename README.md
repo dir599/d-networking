@@ -11,9 +11,9 @@ A full-stack social networking platform built with **React**, **Node.js**, **Exp
 ### Authentication
 
 - [x] User registration
-- [ ] Secure login with JWT
+- [x] Secure login with JWT
 - [x] Password hashing using bcrypt
-- [ ] Protected API routes
+- [x] Protected API routes
 - [ ] User profile management
 
 ### User Profiles
@@ -21,16 +21,16 @@ A full-stack social networking platform built with **React**, **Node.js**, **Exp
 - [ ] View user profiles
 - [ ] Update profile information
 - [ ] Profile image support
-- [X] User bio
-- [X] User roles
+- [x] User bio
+- [x] User roles
 
 ### Posts
 
-- [X] Create posts
-- [X] Edit posts
-- [X] Delete posts
-- [X] View all posts
-- [X] View individual posts
+- [x] Create posts
+- [x] Edit posts
+- [x] Delete posts
+- [x] View all posts
+- [x] View individual posts
 
 ### Comments
 
@@ -48,10 +48,8 @@ A full-stack social networking platform built with **React**, **Node.js**, **Exp
 
 ### Social Features
 
-- [ ] Follow users
-- [ ] Followers & following
-- [ ] Friend requests
-- [ ] Friend request status
+- [x] Follow users
+- [x] Followers & following
 
 ### Messaging
 
@@ -73,9 +71,10 @@ A full-stack social networking platform built with **React**, **Node.js**, **Exp
 
 ### Frontend
 
+- Vite
 - React
 - Tailwind CSS
-- FontAwesome
+- FontAwesome or Lucide-react
 
 ### Backend
 
@@ -83,10 +82,11 @@ A full-stack social networking platform built with **React**, **Node.js**, **Exp
 - Express.js
 - Prisma ORM
 - PostgreSQL
-- JWT Authentication (yet to be implemented)
+- JWT Authentication
 - bcrypt
 - Zod Validation
-- Multer (yet to be implemented)
+- Multer
+- Cors
 
 ### Development Tools
 
@@ -146,6 +146,7 @@ Main entities include:
 - Follow
 - Message
 - Notification
+- Story
 
 Relationships are handled using Prisma relations with cascading deletes where appropriate.
 
@@ -184,6 +185,7 @@ POSTGRES_DB=d-networking
 POSTGRES_PASSWORD=
 POSTGRES_HOST=
 POSTGRES_PORT=pport
+JWT_SECRET=
 
 DATABASE_URL="postgresql://username:password@localhost:pport/d-networking?schema=public"
 ```
@@ -230,6 +232,14 @@ cd frontend
 npm install
 ```
 
+### Configure environment variables
+
+Create a `.env` file.
+
+```env
+VITE_BACKEND_URL=
+```
+
 ### Run the development server
 
 ```bash
@@ -252,14 +262,14 @@ npm run dev
 
 ### Posts
 
-| Method | Endpoint          |
-| ------ | ----------------- |
-| GET    | `/posts`          |
-| GET    | `/posts/:id`      |
-| POST   | `/posts`          |
-| POST   | `/posts/:id/like` |
-| PUT    | `/posts/:id`      |
-| DELETE | `/posts/:id`      |
+| Method | Endpoint         |
+| ------ | ---------------- |
+| GET    | `/posts`         |
+| GET    | `/posts/:id`     |
+| POST   | `/posts`         |
+| POST   | `/posts/like:id` |
+| PUT    | `/posts/:id`     |
+| DELETE | `/posts/:id`     |
 
 ### Comments
 
@@ -268,7 +278,7 @@ npm run dev
 | GET    | `/comments`          |
 | GET    | `/comments/:id`      |
 | POST   | `/comments`          |
-| POST   | `/comments/:id/like` |
+| POST   | `/comments/like/:id` |
 | PUT    | `/comments/:id`      |
 | DELETE | `/comments/:id`      |
 
@@ -318,5 +328,6 @@ This project is licensed under the MIT License.
 ---
 
 ## Contributors
+
 - Sanjog Rai
 - Dirag Kasula
