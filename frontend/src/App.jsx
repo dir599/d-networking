@@ -4,8 +4,8 @@ import Home from "./components/home/Home";
 import Sidebar from "./components/sidebar/Sidebar";
 import Stories from "./components/stories/Stories";
 import NewsFeedTest from "./components/newsFeed/NewsFeedTest";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
+import Register from "./pages/auth/Register";
+import Login from "./pages/auth/Login";
 import NewNewsfeed from "./components/newsFeed/newNews";
 
 const App = () => {
