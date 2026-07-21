@@ -21,6 +21,8 @@ const getAllCommentsService = async () => {
           commentLikes: true,
         },
       },
+      createdAt: true,
+      updatedAt: true,
     },
   });
 };
@@ -49,6 +51,8 @@ const getCommentByIdService = async (id) => {
           commentLikes: true,
         },
       },
+      createdAt: true,
+      updatedAt: true,
     },
   });
 };
@@ -84,6 +88,7 @@ const createCommentService = async (body) => {
           commentLikes: true,
         },
       },
+      createdAt: true,
     },
   });
 };
@@ -116,6 +121,8 @@ const updateCommentService = async (id, body) => {
           commentLikes: true,
         },
       },
+      createdAt: true,
+      updatedAt: true,
     },
   });
 };
@@ -143,6 +150,7 @@ const deleteCommentService = async (id) => {
           commentLikes: true,
         },
       },
+      createdAt: true,
     },
   });
 };
