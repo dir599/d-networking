@@ -1,10 +1,5 @@
 import {
-  Heart,
-  MessageCircle,
-  Send,
-  Bookmark,
   MoreHorizontal,
-  Smile,
 } from "lucide-react";
 function Header({ profileImage, username, bio }) {
   return (

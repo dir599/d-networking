@@ -1,13 +1,4 @@
-import React, { useEffect, useState } from "react";
-// Replace these imports with whichever icon library you prefer (Lucide, FontAwesome, etc.)
-import {
-  Heart,
-  MessageCircle,
-  Send,
-  Bookmark,
-  MoreHorizontal,
-  Smile,
-} from "lucide-react";
+import { useEffect, useState } from "react";
 import AddComment from "./comment/AddComment";
 import Header from "./header/Header";
 import PostContent from "./postContent/PostContent";
@@ -49,7 +40,7 @@ const NewNewsfeed = () => {
             <div className="max-w-xl h-screen bg-white border border-slate-100 rounded-3xl p-4 shadow-sm flex flex-col gap-4">
               {/* Header: User Info */}
               <Header
-                profileImage={post.author.profileImage}
+                profileImage={`${backendURL}${post.author.profileImage}`}
                 username={post.author.username}
                 bio={post.author.bio}
               />
@@ -73,7 +64,9 @@ const NewNewsfeed = () => {
                 <TimeStamp createdAt={post.createdAt} />
               </div>
               {/* Add Comment Section */}
-              <AddComment profileImage={post.author.profileImage} />
+              <AddComment
+                profileImage={`${backendURL}${post.author.profileImage}`}
+              />
             </div>
           </li>
         );

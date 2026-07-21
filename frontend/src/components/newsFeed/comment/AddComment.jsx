@@ -1,10 +1,5 @@
 import { useState } from "react";
 import {
-  Heart,
-  MessageCircle,
-  Send,
-  Bookmark,
-  MoreHorizontal,
   Smile,
 } from "lucide-react";
 
