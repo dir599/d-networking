@@ -3,8 +3,6 @@ import {
   MessageCircle,
   Send,
   Bookmark,
-  MoreHorizontal,
-  Smile,
 } from "lucide-react";
 function ActionButtons({ likeCount, commentCount }) {
   return (
