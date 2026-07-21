@@ -23,6 +23,8 @@ const getAllPostsService = async () => {
           comments: true,
         },
       },
+      createdAt: true,
+      updatedAt: true,
     },
   });
 };
@@ -53,6 +55,8 @@ const getPostByIdService = async (id) => {
           comments: true,
         },
       },
+      createdAt: true,
+      updatedAt: true,
     },
   });
 };
@@ -83,6 +87,7 @@ const createPostService = async (body) => {
           role: true,
         },
       },
+      createdAt: true,
     },
   });
 };
@@ -118,6 +123,8 @@ const updatePostService = async (id, body) => {
           comments: true,
         },
       },
+      createdAt: true,
+      updatedAt: true,
     },
   });
 };
@@ -147,6 +154,7 @@ const deletePostService = async (id) => {
           comments: true,
         },
       },
+      createdAt: true,
     },
   });
 };
