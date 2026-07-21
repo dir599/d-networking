@@ -22,6 +22,6 @@ router.use("/posts", postRouter);
 router.use("/posts", postRouter);
 router.use("/comments", commentRouter);
 router.use("/users", usersRouter);
-router.use("/upload", uploadRouter);
+router.use("/uploads", uploadRouter);
 
 export default router;
